@@ -10,7 +10,7 @@
     <!-- login box -->
     <div class="login-container">
         <form action="login.php" method="POST" class="login-form">
-            <h2>Login</h2>
+            <h2>LOGIN</h2>
             <div class="form-group">
                 <label for="username">Username</label>
                 <input type="text" id="username" name="username" required>
