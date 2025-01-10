@@ -34,16 +34,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             // Redirect based on user role
             if ($role === 'donor') {
-                header("Location: donor_dashboard.php");
+                header("Location: homepage.php");
             } elseif ($role === 'receiver') {
-                header("Location: receiver_dashboard.php");
+                header("Location: homepage.php");
             }
             exit;
         } else {
-            echo "Incorrect password. Please try again.";
+             echo"<script>alert('Incorrect password. Please try again.');</script>";
         }
     } else {
-        echo "No account found with this email.";
+        echo"<script>alert('No account found with this email.');</script>";
     }
 }
 
@@ -65,7 +65,7 @@ mysqli_close($conn);
 
     <!-- login box -->
     <div class="login-container" style="padding: 30px;">
-        <form action="login.php" method="POST" class="login-form">
+        <form action="homepage.php" method="POST" class="login-form">
             <h2>LOGIN</h2>
             <div class="form-group">
                 <label for="username">Username</label>
@@ -93,6 +93,13 @@ mysqli_close($conn);
                 data-shape="rectangular"
                 data-logo_alignment="left">
             </div>
+            
+            <div style="display: flex; justify-content: center; margin-top: 20px;">
+    <button style="padding: 5px 10px; font-size: 16px;">
+        <a href="register.php" style="text-decoration: none; color: inherit;">Don't have an account? Click here.</a>
+    </button>
+</div>
+
 
         </form>
     </div>

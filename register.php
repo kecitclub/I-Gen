@@ -145,9 +145,10 @@ mysqli_close($conn);
                 } else {
                     receiverForm.style.display = 'block';
                     donorForm.style.display = 'none';
-                }
+                }  
             });
         });
+        
     </script>
 </body>
 
