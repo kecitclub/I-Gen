@@ -11,76 +11,75 @@ if (!$conn) {
 }
 
 if (isset($_POST['register_donor'])) {
-    // Donor Registration
+    // Donor's registration
     $name = mysqli_real_escape_string($conn, $_POST['name']);
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $password = mysqli_real_escape_string($conn, $_POST['password']);
     $confirm_password = mysqli_real_escape_string($conn, $_POST['confirm_password']);
     $preferences = mysqli_real_escape_string($conn, $_POST['preferences']);
-    $contact_number = mysqli_real_escape_string($conn, $_POST['contact_number']);
+    
+    // Debugging: Print the received data
+    echo "Name: $name, Email: $email, Preferences: $preferences<br>";
 
-    // Validate Data
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        die('Invalid email format.');
-    }
-    if (!preg_match('/^\d{10}$/', $contact_number)) {
-        die('Contact number must be 10 digits.');
-    }
+    // Check if passwords match
     if ($password !== $confirm_password) {
-        die('Passwords do not match.');
+        die('Passwords do not match. Please try again.');
     }
 
-    // Insert into `donor` and `login` tables
-    $hashed_password = password_hash($password, PASSWORD_DEFAULT); // Securely hash the password
-    $donor_query = "INSERT INTO donor (name, email, preferences, contact_number) VALUES ('$name', '$email', '$preferences', '$contact_number')";
+    // Insert donor data into the 'donor' table
+    $donor_query = "INSERT INTO donor (name, email, preferences) VALUES ('$name', '$email', '$preferences')";
+    
+    // Insert login credentials into the 'login' table (email, password)
+    $hashed_password = password_hash($password, PASSWORD_DEFAULT); // Hash password before storing
     $login_query = "INSERT INTO login (email, password, role) VALUES ('$email', '$hashed_password', 'donor')";
 
+    // Debugging: Check queries
+    echo "Donor Query: $donor_query<br>";
+    echo "Login Query: $login_query<br>";
+
     if (mysqli_query($conn, $donor_query) && mysqli_query($conn, $login_query)) {
-        header("Location: homepage.php");
+        echo "Donor registered successfully.";
     } else {
-        echo "Error: " . mysqli_error($conn);
+        echo "Error: " . mysqli_error($conn);  // Outputs any database error
     }
+
 } elseif (isset($_POST['register_receiver'])) {
-    // Receiver Registration
+    // Receiver registration
     $school_name = mysqli_real_escape_string($conn, $_POST['school_name']);
-    $registration_number = mysqli_real_escape_string($conn, $_POST['registration_number']);
     $location = mysqli_real_escape_string($conn, $_POST['location']);
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $password = mysqli_real_escape_string($conn, $_POST['password']);
     $confirm_password = mysqli_real_escape_string($conn, $_POST['confirm_password']);
     $needs = mysqli_real_escape_string($conn, $_POST['needs']);
-    $contact_number = mysqli_real_escape_string($conn, $_POST['contact_number']);
-    $bank_account = mysqli_real_escape_string($conn, $_POST['bank_account']);
 
-    // Validate Data
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        die('Invalid email format.');
-    }
-    if (!preg_match('/^\d{10}$/', $contact_number)) {
-        die('Contact number must be 10 digits.');
-    }
-    if (!preg_match('/^\d{8,20}$/', $bank_account)) {
-        die('Bank account number must be 8-20 digits.');
-    }
+    // Debugging: Print the received data
+    echo "School Name: $school_name, Location: $location, Needs: $needs<br>";
+
+    // Check if passwords match
     if ($password !== $confirm_password) {
-        die('Passwords do not match.');
+        die('Passwords do not match. Please try again.');
     }
 
-    // Insert into `receiver` and `login` tables
-    $hashed_password = password_hash($password, PASSWORD_DEFAULT); // Securely hash the password
-    $receiver_query = "INSERT INTO receiver (school_name, registration_number, location, email, needs, contact_number, bank_account) VALUES ('$school_name', '$registration_number', '$location', '$email', '$needs', '$contact_number', '$bank_account')";
+    // Insert receiver data into the 'receiver' table
+    $receiver_query = "INSERT INTO receiver (school_name, location, email, needs) VALUES ('$school_name', '$location', '$email', '$needs')";
+    
+    // Insert login credentials into the 'login' table (email, password)
+    $hashed_password = password_hash($password, PASSWORD_DEFAULT); // Hash password before storing
     $login_query = "INSERT INTO login (email, password, role) VALUES ('$email', '$hashed_password', 'receiver')";
 
+    // Debugging: Check queries
+    echo "Receiver Query: $receiver_query<br>";
+    echo "Login Query: $login_query<br>";
+
     if (mysqli_query($conn, $receiver_query) && mysqli_query($conn, $login_query)) {
-        header("Location: homepage.php");
+        echo "Receiver registered successfully.";
     } else {
-        echo "Error: " . mysqli_error($conn);
+        echo "Error: " . mysqli_error($conn);  // Outputs any database error
     }
 }
 
 mysqli_close($conn);
 ?>
-
 
 
 <!DOCTYPE html>
@@ -91,12 +90,29 @@ mysqli_close($conn);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registration Page</title>
     <link rel="stylesheet" href="css/register.css">
+    <style>
+        body {
+            background-image: url('login3.jpg');
+            /* Path to your image */
+            background-size: cover;
+            /* Scales the image to cover the entire screen */
+            background-repeat: no-repeat;
+            /* Prevents tiling */
+            background-position: center;
+            /* Centers the image */
+            height: 100vh;
+            /* Ensures body covers full viewport height */
+            margin: 0;
+            /* Removes default margin */
+        }
+    </style>
 </head>
 
 <body>
-    <div class="container" style="padding: 36px; background-color: white;">
+    <div class="container" style="padding: 36px;background-color: white;");>
         <h2>Register</h2>
         <div class="role-select">
+
             <label>
                 <input type="radio" name="role" value="donor"> I am a Donor
             </label>
@@ -104,32 +120,26 @@ mysqli_close($conn);
                 <input type="radio" name="role" value="receiver"> I am a Receiver
             </label>
         </div>
-
-        <form id="donor-form" class="form-section" method="POST" action="">
+        <form id="donor-form" class="form-section" method="POST" action="homepage.php">
             <h3>Donor Registration</h3>
             <input type="text" name="name" placeholder="Full Name" required>
-            <input type="text" name="contact_number" placeholder="Contact Number" required>
             <input type="email" name="email" placeholder="Email" required>
             <input type="password" name="password" placeholder="Password" required>
             <input type="password" name="confirm_password" placeholder="Re-enter Password" required>
             <textarea name="preferences" placeholder="Your donation preferences (e.g., books, money, etc.)" required></textarea>
             <button type="submit" name="register_donor">Register as Donor</button>
         </form>
-
-        <form id="receiver-form" class="form-section" method="POST" action="">
+        <form id="receiver-form" class="form-section" method="POST" action="homepage.php">
             <h3>Receiver Registration</h3>
             <input type="text" name="school_name" placeholder="School Name" required>
-            <input type="text" name="registration_number" placeholder="School Registration Number" required>
-            <input type="text" name="contact_number" placeholder="Contact Number" required>
-            <input type="text" name="bank_account" placeholder="Bank Account Number" required>
             <input type="text" name="location" placeholder="Location" required>
             <input type="email" name="email" placeholder="School Email" required>
             <input type="password" name="password" placeholder="Password" required>
             <input type="password" name="confirm_password" placeholder="Re-enter Password" required>
             <textarea name="needs" placeholder="Describe the needs of your school" required></textarea>
-
             <button type="submit" name="register_receiver">Register as Receiver</button>
         </form>
+
     </div>
 
     <script>
@@ -140,11 +150,11 @@ mysqli_close($conn);
         roleRadios.forEach(radio => {
             radio.addEventListener('change', () => {
                 if (radio.value === 'donor') {
-                    donorForm.style.display = 'block';
-                    receiverForm.style.display = 'none';
-                } else {
-                    receiverForm.style.display = 'block';
-                    donorForm.style.display = 'none';
+                    donorForm.classList.add('active');
+                    receiverForm.classList.remove('active');
+                } else if (radio.value === 'receiver') {
+                    receiverForm.classList.add('active');
+                    donorForm.classList.remove('active');
                 }
             });
         });
