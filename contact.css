@@ -1,0 +1,191 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f9fc; /* Light background color */
+    color: #333;
+    line-height: 1.6;
+  }
+  
+  /* Navigation Bar */
+  nav {
+    display: flex;
+    justify-content: center;
+    background: linear-gradient(90deg, #3E5879, #A1D1E4);
+    padding: 1rem 0;
+    border-color: black;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 1rem;
+    font-weight: bold;
+    /* transition: background-color 0.3s ease, color 0.3s ease; */
+    /* border-color: black; */
+}
+
+ nav a button{ 
+    background-color: #3E5879;
+    color: white;
+    padding: 0px; 
+ }
+
+
+ nav a:hover {
+    text-decoration: none;
+    background-color: #125687; 
+   
+    border-radius: 5px;
+}
+.nav-button {
+    display: flex;
+    justify-content: center;
+ }
+
+ .nbutton {
+    text-decoration: none;
+    padding: 10px 30px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    background: #3E5879; 
+     color:  white;  
+    transform: scale(1);
+ }
+    
+
+
+.nbutton:hover {
+background: rgba(0, 0, 0, 0.1); 
+color: white; 
+box-shadow: 0 0 10px black; 
+/* transform: scale(1.1); 
+transition: transform 0.3s ease;*/
+}
+.nbutton.active {
+    background: #125687;
+    border-radius: 5px;
+}
+
+  
+  /* Main Content */
+  .container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 50px;
+    background-color: #3E5879;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-size: 20px;
+  }
+  
+  .container h2 {
+    margin-bottom: 20px;
+    color: white;
+  }
+  
+  .container p {
+    color: white;
+    margin: 10px 0;
+    font-size: 18px;
+  }
+  
+  .container a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .container a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Social Media Section */
+  .social-media {
+    text-align: center;
+    margin: 25px 0;
+    color:#3E5879;
+    font-weight: 0px;
+  }
+  
+  .social-media p {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .social-media a {
+    margin: 0 10px;
+    display: inline-block;
+  }
+  
+  .social-media img {
+    width: 40px; /* Adjust size of icons */
+    height: 40px;
+    transition: transform 0.2s ease;
+  }
+  
+  .social-media img:hover {
+    transform: scale(1.2); /* Enlarge on hover */
+  }
+  
+  /* FAQ Section */
+  .faq {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 50px;
+    background-color:  #3E5879;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-size: 20px;
+  }
+  
+  .faq1{
+    width:900px;
+    margin: 30px auto;
+    padding: 0px;
+    background-color:  #3E5879;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px white;
+    font-size: 20px;
+  }
+  .faq h1 {
+    text-align: center;
+    color: white;
+    margin-bottom: 15px;
+  }
+
+  details {
+    margin: 10px 0;
+    background-color: #fff;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  details summary {
+    font-weight: bold;
+    cursor: pointer;
+    color: #0056b3;
+  }
+  
+  details summary:hover {
+    text-decoration: underline;
+  }
+  
+  details p {
+    margin-top: 10px;
+    color: #333;
+  }
+  
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #0056b3;
+    color: white;
+    margin-top: 50px;
+  }
+  
